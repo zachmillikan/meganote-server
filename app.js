@@ -19,12 +19,24 @@ app.use(bodyParser.json());
 app.get('/', function(req, res) {
   Note
     .find()
-    .sort({ title: 'asc'})
+    .sort({ updated_at: 'asc'})
     .then(function(notes) {
       res.json(notes);
     });
 });
 
+//READ one note
+app.get('/:id', function(req, res) {
+  Note
+    .findOne({
+      _id: req.params.id
+    })
+    .then(function(note) {
+      res.json(note);
+    });
+});
+
+// Create a note
 app.post('/', function(req, res) {
   var note = new Note({
     title: req.body.note.title,
@@ -40,6 +52,8 @@ app.post('/', function(req, res) {
       });
     });
 });
+
+
 
 app.listen(3030, function() {
   console.log('Listening on http://localhost:3030...');
