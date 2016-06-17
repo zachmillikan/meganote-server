@@ -6,7 +6,9 @@ var Note = require('./models/note');
 var app = express();
 
 app.use(function(req, res, next) {
-  res.header('Access-Control-Origin', '*');
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', "POST, GET, DELETE, PUT");
+  res.header('Access-Control-Allow-Headers', "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
   next();
 });
 
