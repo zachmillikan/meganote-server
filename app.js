@@ -74,6 +74,9 @@ app.put('/:id', function(req, res) {
               note: note
             });
         });
+      },
+      function(result) {
+        res.json({ message: 'Aww, cuss!' });
     });
 });
 
@@ -91,6 +94,13 @@ app.delete('/:id', function(req, res) {
         note: note
       })
     })
+  });
+});
+
+//Create a user
+app.post('/users', function(req, res) {
+  res.json({
+    msg: 'Hooray!'
   });
 });
 
