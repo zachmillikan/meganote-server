@@ -10,6 +10,10 @@ var userSchema = db.Schema({
     required: true,
     unique: true
   },
+  passwordDigest: {
+    type: String,
+    required: true,
+  },
   updated_at: {
     type: Date,
     default: Date.now,
@@ -18,6 +22,16 @@ var userSchema = db.Schema({
 
 userSchema.pre('save', function(next) {
   this.updated_at = Date.now();
+  next();
 });
 
+userSchema.methods.toJSON = function () {
+  var user = this.toObject();
+  delete user.passwordDigest;
+  delete user.__v;
+  return user;
+};
+
 var User = db.model('User', userSchema);
+
+module.exports = User;
