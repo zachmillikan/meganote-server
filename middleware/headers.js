@@ -1,5 +1,5 @@
 
-module.exports = function (req, res, next) => {
+module.exports = (req, res, next) => {
 
   res.header('Access-Control-Allow-Origin', '*');
   // res.header('Access-Control-Allow-Methods', "POST, GET, DELETE, PUT");
@@ -10,4 +10,4 @@ module.exports = function (req, res, next) => {
 
   //Continue processing the request
   next();
-});
+};
