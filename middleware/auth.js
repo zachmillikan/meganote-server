@@ -26,12 +26,11 @@ module.exports = (req, res, next) => {
               else {
                 // user not found
                 res.status(401).json({ message: 'Authentication required.'});
+                return;
               }
             }
         );
-    })
-    next();
-    // Get the user
+    }); 
   }
   else {
     res.status(401).json({ message: 'Authentication required.'});
