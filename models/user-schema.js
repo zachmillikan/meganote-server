@@ -18,7 +18,8 @@ var userSchema = db.Schema({
   updated_at: {
     type: Date,
     default: Date.now
-  }
+  },
+  notes: [noteSchema],
 });
 
 userSchema.pre('save', function(next) {
