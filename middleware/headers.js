@@ -1,10 +1,13 @@
 
 module.exports = (req, res, next) => {
 
+  //Allows CORS
   res.header('Access-Control-Allow-Origin', '*');
-  // res.header('Access-Control-Allow-Methods', "POST, GET, DELETE, PUT");
-  res.header('Access-Control-Allow-Headers',
-    'Content-Type');
+
+  // Allow Content-Type header (for JSON payloads)
+  // Allow Autherization header (for JSON Web Tokens)
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Autherization');
+
   //Allow more HTTP verbs
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
 

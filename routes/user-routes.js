@@ -6,7 +6,7 @@ var User = require('../models/user');
 //Create a user
 router.post('/', function(req, res) {
   if (!passwordsPresent(req.body.user) || !passwordsMatch(req.body.user)) {
-    res.status(418).json({
+    res.status(422).json({
       message: 'Passwords must match!'
     });
     return;
@@ -46,17 +46,20 @@ router.put('/:id', (req, res) => {
         user.username = req.body.user.username;
         user
           .save()
-          .then()
-            () => res.json({ user })
+          .then(
+            //Success
+            () => res.json({ user }),
+
             // failure
             () => res.status(422).json({ message: 'Unable to update user.' })
-          };
+          );
         }
         else {
           res.status(404).json({ message: 'Could not find user.' });
         }
-      )
-    })
+      }
+    );
+  });
 
 module.exports = router;
 

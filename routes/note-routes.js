@@ -44,17 +44,23 @@ router.put('/:id', function(req, res) {
     .findOne({
       _id: req.params.id
     })
-    .then(function(note) {
-      note.title = req.body.note.title;
-      note.body_html = req.body.note.body_html;
-      note
-        .save()
-        .then(function() {
-          res.json({
-              message: 'Your changes have been saved.',
-              note: note
-            });
-        });
+    .then(
+      function(note) {
+        note.title = req.body.note.title;
+        note.body_html = req.body.note.body_html;
+        note
+          .save()
+          .then(
+            function() {
+              res.json({
+                message: 'Your changes have been saved.',
+                note: note
+              });
+          },
+          function(result) {
+            res.json({ message: 'Aww, cuss!' });
+          }
+        );
       },
       function(result) {
         res.json({ message: 'Aww, cuss!' });
@@ -74,8 +80,8 @@ router.delete('/:id', function(req, res) {
         message: 'Note deleted',
         note: note
       })
-    })
+    });
   });
 });
 
-module.exports = router; 
+module.exports = router;
