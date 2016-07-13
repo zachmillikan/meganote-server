@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var Note = require('../models/note');
+
 //READ all notes
 router.get('/', function(req, res) {
   res.json(req.user.notes);
@@ -40,7 +40,7 @@ router.put('/:id', function(req, res) {
       user => {
         res.json({
           message: 'Your changes have been saved!',
-          note
+          note: note
         });
       }
     );

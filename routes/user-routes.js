@@ -5,7 +5,7 @@ var User = require('../models/user');
 
 //Create a user
 router.post('/', function(req, res) {
-  if (!passwordsPresent(req.body.user) || !passwordsMatch(req.body.user)) {
+  if (passwordsPresent(req.body.user) && !passwordsMatch(req.body.user)) {
     res.status(422).json({
       message: 'Passwords must match!'
     });
@@ -22,9 +22,13 @@ router.post('/', function(req, res) {
     .save()
     .then(
       userData => {
-        var token = jwt.sign(userData._id, process.env.JWT_SECRET, {
+        var token = jwt.sign(
+          { _id: userData._id },
+          process.env.JWT_SECRET,
+          {
           expiresIn:60*60*24
-        });
+          }
+        );
         res.json({
           user: userData,
           authToken: token

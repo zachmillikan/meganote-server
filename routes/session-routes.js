@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var jwt = require('jsonwebtoken');
-var User = require('../models/users');
+var User = require('../models/user');
 
 // login
 router.post('/', (req, res) => {
@@ -16,10 +16,12 @@ router.post('/', (req, res) => {
             if (isMatch) {
               // correct password
               var token = jwt.sign(
-                { _id: userData._id },
-                process.env.JWT_SECRET, {
+                { _id: user._id },
+                process.env.JWT_SECRET,
+                {
                 expiresIn: 60*60*24
-              });
+                }
+              );
               res.json({
                 user,
                 authToken: token
